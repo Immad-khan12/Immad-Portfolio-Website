@@ -70,7 +70,6 @@ function restoreScroll(y: number, onDone: () => void) {
 }
 
 export const LoadingProvider = ({ children }: PropsWithChildren) => {
-  const isDesktop = window.innerWidth > 1024;
   // true when we come BACK to the home page inside the same tab
   const [cameBack] = useState(() => storage.get(LOADED_KEY) === "1");
   // read the saved position right now, before any scroll event can overwrite it
@@ -79,12 +78,9 @@ export const LoadingProvider = ({ children }: PropsWithChildren) => {
   );
   const saveEnabled = useRef(!(cameBack && savedScroll > 0));
 
-  const [isLoading, setIsLoadingState] = useState(() => {
-    // Skip loading when the 3D character is not rendered (<= 1024px)
-    // or when the loading screen was already shown in this tab.
-    if (!isDesktop) return false;
-    return !cameBack;
-  });
+  // Show the loading screen on every device, but not again when you come BACK
+  // to the home page from another page in the same tab.
+  const [isLoading, setIsLoadingState] = useState(() => !cameBack);
   const [loading, setLoading] = useState(0);
   const started = useRef(false);
 
@@ -100,8 +96,8 @@ export const LoadingProvider = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
-    // Mobile (no 3D model) or coming back from another page: no loading screen,
-    // start the animations straight away and go back to the old scroll position.
+    // Coming back from another page: no loading screen, start the animations
+    // straight away and go back to the old scroll position.
     if (isLoading || started.current) return;
     started.current = true;
     storage.set(LOADED_KEY, "1");

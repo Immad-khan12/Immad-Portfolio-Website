@@ -15,16 +15,14 @@ import setSplitText from "./utils/splitText";
 import FloatingWhatsApp from "./FloatingWhatsApp";
 
 const MainContainer = ({ children }: PropsWithChildren) => {
-  const [isDesktopView, setIsDesktopView] = useState<boolean>(
-    window.innerWidth > 1024
-  );
-  const [isMobile] = useState<boolean>(window.innerWidth <= 768);
-  const [shouldRenderCharacter] = useState<boolean>(window.innerWidth > 1024);
+  // Compact (phone + tablet, up to 1024px): the 3D character sits inside the hero,
+  // between the name and the roles. Desktop: it is a full-screen layer behind the page.
+  const [compact, setCompact] = useState<boolean>(window.innerWidth <= 1024);
 
   useEffect(() => {
     const resizeHandler = () => {
       setSplitText();
-      setIsDesktopView(window.innerWidth > 1024);
+      setCompact(window.innerWidth <= 1024);
     };
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
@@ -39,9 +37,9 @@ const MainContainer = ({ children }: PropsWithChildren) => {
       <Navbar />
       <SocialIcons />
       <FloatingWhatsApp />
-      {isDesktopView && !isMobile && shouldRenderCharacter && children}
+      {!compact && children}
       <div className="container-main">
-        <Landing />
+        <Landing compact={compact}>{children}</Landing>
         <About />
         <WhatIDo />
         <Career />

@@ -5,7 +5,11 @@ import "./styles/Extras.css";
 import "./styles/Fixes.css";
 import { config } from "../config";
 
-const Landing = ({ children }: PropsWithChildren) => {
+// compact (phone + tablet, up to 1024px): the 3D character sits inside the hero,
+// between the name and the roles. On desktop it is a full-screen layer instead.
+type Props = PropsWithChildren<{ compact?: boolean }>;
+
+const Landing = ({ children, compact = false }: Props) => {
   return (
     <>
       <div className="landing-section" id="landingDiv">
@@ -28,23 +32,13 @@ const Landing = ({ children }: PropsWithChildren) => {
               <div className="landing-h2-info">{config.developer.roles[1]}</div>
             </h2>
           </div>
-          {/* Mobile photo - shows only on mobile when 3D character is hidden */}
-          <div className="mobile-photo">
-            <img
-              src="/images/profile.webp"
-              alt={config.developer.fullName}
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-            />
-          </div>
+          {compact && children}
           <div className="landing-cta">
             <a className="hire-btn hire-btn-hire" href={config.contact.linkedin} target="_blank" rel="noopener noreferrer" data-cursor="disable">
               <MdOutlineWorkOutline /> Hire Me
             </a>
           </div>
         </div>
-        {children}
       </div>
     </>
   );

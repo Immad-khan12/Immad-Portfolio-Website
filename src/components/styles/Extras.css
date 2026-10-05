@@ -209,7 +209,8 @@
   margin-top: 24px;
 }
 
-@media only screen and (max-width: 768px) {
+/* UPDATED: Changed breakpoint from 768px to 1024px */
+@media only screen and (max-width: 1024px) {
   .landing-cta {
     position: static !important;
     flex-direction: row;
@@ -291,8 +292,6 @@
   }
 }
 
-
-
 /* ───────── Desktop hero: same big look as the original template ───────── */
 @media only screen and (min-width: 1025px) {
   .landing-intro {
@@ -328,7 +327,9 @@
     top: 57% !important;
   }
 }
-@media only screen and (max-width: 768px) {
+
+/* UPDATED: Changed breakpoint from 768px to 1024px */
+@media only screen and (max-width: 1024px) {
   .landing-info h3 {
     display: block !important;
     text-align: center;

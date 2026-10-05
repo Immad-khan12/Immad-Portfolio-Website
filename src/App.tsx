@@ -2,11 +2,9 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 
-// Desktop: start downloading the 3D character code immediately (faster loading screen)
+// Start downloading the 3D character code immediately on every device (faster loading screen)
 const characterImport = () => import("./components/Character");
-if (typeof window !== "undefined" && window.innerWidth > 1024) {
-  characterImport();
-}
+characterImport();
 const CharacterModel = lazy(characterImport);
 const MainContainer = lazy(() => import("./components/MainContainer"));
 const MyWorks = lazy(() => import("./pages/MyWorks"));

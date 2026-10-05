@@ -40,7 +40,9 @@ const Scene = () => {
         powerPreference: "high-performance",
       });
       renderer.setSize(container.width, container.height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(
+        Math.min(window.devicePixelRatio, window.innerWidth <= 1024 ? 1.5 : 2)
+      );
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1;
       const canvasEl = renderer.domElement;
@@ -62,7 +64,12 @@ const Scene = () => {
       let progress = setProgress((value) => setLoading(value));
       const { loadCharacter } = setCharacter(renderer, scene, camera);
 
+      // Mobile: the address bar going up/down only changes the height.
+      // Ignore those height-only resizes so the canvas is not reset again and again.
+      let lastWidth = window.innerWidth;
       const onResize = () => {
+        if (window.innerWidth <= 1024 && window.innerWidth === lastWidth) return;
+        lastWidth = window.innerWidth;
         if (loadedCharacter && !disposed) {
           handleResize(renderer, camera, canvasDiv, loadedCharacter);
         }
