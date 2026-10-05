@@ -3,6 +3,7 @@ import { MdOutlineWorkOutline } from "react-icons/md";
 import "./styles/Landing.css";
 import "./styles/Extras.css";
 import "./styles/Fixes.css";
+import "./styles/MobileCharacter.css";
 import { config } from "../config";
 
 // compact (phone + tablet, up to 1024px): the 3D character sits inside the hero,
@@ -23,6 +24,7 @@ const Landing = ({ children, compact = false }: Props) => {
               <span>{config.developer.heroLast.toUpperCase()}</span>
             </h1>
           </div>
+          {compact && <div className="char-slot">{children}</div>}
           <div className="landing-info">
             <h3>{config.developer.rolePrefix}</h3>
             <h2 className="landing-info-h2">
@@ -32,7 +34,6 @@ const Landing = ({ children, compact = false }: Props) => {
               <div className="landing-h2-info">{config.developer.roles[1]}</div>
             </h2>
           </div>
-          {compact && children}
           <div className="landing-cta">
             <a className="hire-btn hire-btn-hire" href={config.contact.linkedin} target="_blank" rel="noopener noreferrer" data-cursor="disable">
               <MdOutlineWorkOutline /> Hire Me

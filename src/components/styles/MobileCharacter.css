@@ -1,0 +1,22 @@
+/* Phone + tablet (up to 1024px): 3D character follows the page (see GsapScroll.ts) */
+@media only screen and (max-width: 1024px) {
+  .char-slot {
+    order: 2;
+    width: 100%;
+    position: relative;
+  }
+
+  /* above the page text, below the top bar */
+  .char-slot .character-container {
+    order: 0;
+    z-index: 13 !important;
+  }
+
+  /* --char-k goes from 1 to 0.62 while the character follows the scroll:
+     the bottom part is cropped, so the upper half stays visible */
+  .char-slot .character-model {
+    height: calc(clamp(300px, 52vh, 520px) * var(--char-k, 1)) !important;
+    overflow: hidden !important;
+    background-color: var(--backgroundColor);
+  }
+}

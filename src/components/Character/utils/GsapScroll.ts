@@ -1,10 +1,12 @@
 import * as THREE from "three";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Everything created below is remembered, so it can be cleaned up when the
 // 3D character is removed (e.g. when you open another page) or rebuilt.
 let charInterval: ReturnType<typeof setInterval> | undefined;
 let createdTimelines: gsap.core.Timeline[] = [];
+let createdTriggers: ScrollTrigger[] = [];
 
 const track = (tl: gsap.core.Timeline) => {
   createdTimelines.push(tl);
@@ -21,6 +23,8 @@ export function killCharTimelines() {
     tl.kill();
   });
   createdTimelines = [];
+  createdTriggers.forEach((st) => st.kill());
+  createdTriggers = [];
 }
 
 export function setCharTimeline(
@@ -156,6 +160,41 @@ export function setCharTimeline(
         })
       );
       tM2.to(".what-box-in", { display: "flex", duration: 0.1, delay: 0 }, 0);
+
+      // Phone + tablet: the character follows you down the page like on desktop.
+      // It stays under the top bar from the hero, through About me and What I do,
+      // then scrolls away. While it follows, it gets a bit shorter (the upper half
+      // stays visible) so the text still has room to be read.
+      if (document.querySelector(".char-slot")) {
+        createdTriggers.push(
+          ScrollTrigger.create({
+            trigger: ".char-slot",
+            start: "top 56px",
+            endTrigger: ".whatIDO",
+            end: "bottom 70%",
+            pin: ".char-slot .character-container",
+            pinSpacing: false,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          })
+        );
+        track(
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: ".char-slot",
+              start: "top 56px",
+              end: "+=260",
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          })
+        ).fromTo(
+          ".char-slot .character-container",
+          { "--char-k": 1 },
+          { "--char-k": 0.62, ease: "none" },
+          0
+        );
+      }
     }
   }
 }
