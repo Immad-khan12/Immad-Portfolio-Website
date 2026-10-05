@@ -1,0 +1,176 @@
+/* Light theme. Dark is the default (see index.css). Toggle sets html[data-theme]. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  color: #1a1420;
+  --accentColor: #6d3fdc;
+  --backgroundColor: #f6f3fa;
+}
+:root[data-theme="light"] body {
+  background-color: #f6f3fa;
+}
+:root[data-theme="light"] .header ul li,
+:root[data-theme="light"] .navbar-title,
+:root[data-theme="light"] .navbar-connect {
+  color: #1a1420;
+}
+:root[data-theme="light"] .landing-circle1,
+:root[data-theme="light"] .landing-circle2 {
+  opacity: 0.45;
+}
+:root[data-theme="light"] .landing-h2-info {
+  color: rgba(26, 20, 32, 0.9);
+}
+/* About / What I do / Career */
+:root[data-theme="light"] .what-box-in line {
+  stroke: #1a1420;
+}
+:root[data-theme="light"] .what-content::before,
+:root[data-theme="light"] .what-corner::before,
+:root[data-theme="light"] .what-content::after,
+:root[data-theme="light"] .what-corner::after,
+:root[data-theme="light"] .what-arrow,
+:root[data-theme="light"] .what-arrow::before {
+  border-color: #1a1420;
+}
+:root[data-theme="light"] .what-tags {
+  background-color: rgba(109, 63, 220, 0.1);
+  border-color: rgba(26, 20, 32, 0.25);
+}
+:root[data-theme="light"] .career-section h2 {
+  background: linear-gradient(0deg, #6d3fdc, #1a1420);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* Work */
+:root[data-theme="light"] .work-box {
+  border-color: rgba(26, 20, 32, 0.18);
+}
+:root[data-theme="light"] .work-flex::before,
+:root[data-theme="light"] .work-flex::after {
+  background-color: rgba(26, 20, 32, 0.18);
+}
+:root[data-theme="light"] .work-info p {
+  color: #4a4152;
+}
+:root[data-theme="light"] .see-all-works h3 {
+  color: #1a1420;
+}
+:root[data-theme="light"] .see-all-works p {
+  color: rgba(26, 20, 32, 0.65);
+}
+:root[data-theme="light"] .see-all-btn {
+  color: #fff;
+}
+/* Tech stack */
+:root[data-theme="light"] .techstack-overlay {
+  background: rgba(246, 243, 250, 0.88);
+}
+:root[data-theme="light"] .techstack-video-container::before {
+  background: linear-gradient(to bottom, #f6f3fa 0%, transparent 100%);
+}
+:root[data-theme="light"] .techstack-video-container::after {
+  background: linear-gradient(to top, #f6f3fa 0%, transparent 100%);
+}
+:root[data-theme="light"] .techstack-content h2 {
+  background: linear-gradient(180deg, #1a1420 0%, #6d3fdc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+:root[data-theme="light"] .techstack-item {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(26, 20, 32, 0.12);
+}
+:root[data-theme="light"] .techstack-item span {
+  color: rgba(26, 20, 32, 0.75);
+}
+:root[data-theme="light"] .techstack-item:hover span {
+  color: #1a1420;
+}
+/* Call to action + contact */
+:root[data-theme="light"] .cta-btn-play {
+  background: rgba(26, 20, 32, 0.06);
+  color: #1a1420;
+  border-color: rgba(26, 20, 32, 0.18);
+}
+:root[data-theme="light"] .cta-btn-play:hover {
+  background: rgba(26, 20, 32, 0.1);
+  color: #1a1420;
+}
+:root[data-theme="light"] .cta-btn-hire {
+  color: #fff;
+}
+:root[data-theme="light"] a.contact-social {
+  border-bottom-color: rgba(26, 20, 32, 0.3);
+}
+:root[data-theme="light"] .resume-button {
+  color: #4a4152;
+}
+/* All works page */
+:root[data-theme="light"] .myworks-page {
+  background-color: #f6f3fa;
+}
+:root[data-theme="light"] .myworks-header h1,
+:root[data-theme="light"] .myworks-card-info h3 {
+  color: #1a1420;
+}
+:root[data-theme="light"] .myworks-header p,
+:root[data-theme="light"] .myworks-card-description {
+  color: rgba(26, 20, 32, 0.72);
+}
+:root[data-theme="light"] .myworks-card-tech {
+  color: rgba(26, 20, 32, 0.55);
+}
+:root[data-theme="light"] .myworks-card {
+  background: #fff;
+  border-color: rgba(26, 20, 32, 0.12);
+}
+
+/* Buttons + decorative circles in light mode */
+:root[data-theme="light"] .hire-btn-hire,
+:root[data-theme="light"] .hire-btn-hire:hover {
+  color: #fff;
+}
+:root[data-theme="light"] .landing-circle1 {
+  opacity: 0.25;
+  box-shadow: none;
+}
+
+/* Skills section */
+:root[data-theme="light"] .skills-tabs {
+  border-color: rgba(26, 20, 32, 0.2);
+}
+:root[data-theme="light"] .skills-tabs button.on {
+  color: #fff;
+}
+:root[data-theme="light"] .skill-card {
+  background: #fff;
+  border-color: rgba(26, 20, 32, 0.12);
+  border-top-color: var(--sc);
+}
+:root[data-theme="light"] .skill-card:hover {
+  box-shadow: 0 14px 30px rgba(60, 40, 120, 0.15);
+}
+
+/* Navbar resume + certifications + CTA */
+:root[data-theme="light"] .nav-resume:hover {
+  color: #fff;
+}
+:root[data-theme="light"] .certs-overlay {
+  background: rgba(246, 243, 250, 0.86);
+}
+:root[data-theme="light"] .cert-card {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(26, 20, 32, 0.12);
+}
+:root[data-theme="light"] .cert-ico {
+  background: rgba(109, 63, 220, 0.12);
+}
+:root[data-theme="light"] .cert-date {
+  background: rgba(109, 63, 220, 0.12);
+}
+:root[data-theme="light"] .cta-btn-hire,
+:root[data-theme="light"] .cta-btn-hire:hover {
+  color: #fff;
+}

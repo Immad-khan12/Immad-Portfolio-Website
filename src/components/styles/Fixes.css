@@ -1,0 +1,41 @@
+/* ───────── Fixes ───────── */
+
+/* 1) Hero "Hire Me" button was not clickable: the full-screen 3D character
+      layer sat on top of it. Let clicks pass through the layer (only the
+      small face circle still reacts to hover). */
+.character-model {
+  pointer-events: none !important;
+}
+.character-hover {
+  pointer-events: auto !important;
+}
+.landing-cta {
+  z-index: 20 !important;
+}
+.landing-cta a {
+  position: relative;
+  z-index: 21;
+  pointer-events: auto;
+}
+
+/* 2) Name a little smaller + a bit more to the left, so the "D" of
+      SHAHZAD no longer hides behind the character's ear (desktop only). */
+@media only screen and (min-width: 1025px) {
+  .landing-intro {
+    left: 5% !important;
+  }
+  .landing-intro h1 {
+    font-size: clamp(26px, 2.7vw, 58px) !important;
+  }
+  .landing-intro h2 {
+    font-size: clamp(18px, 1.55vw, 30px) !important;
+  }
+  .landing-cta {
+    left: 5% !important;
+  }
+}
+
+/* 3) Certifications: background video a bit more visible (dark theme) */
+:root:not([data-theme="light"]) .certs-overlay {
+  background: rgba(11, 8, 12, 0.55);
+}

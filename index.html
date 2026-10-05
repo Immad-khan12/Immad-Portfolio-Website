@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b080c" />
+    <title>Muhammad Immad Shahzad | Full Stack Python & Web Developer</title>
+    <meta name="description" content="Portfolio of Muhammad Immad Shahzad, a Full Stack Python and Web Developer from Lahore, Pakistan. React, FastAPI, Django, MongoDB and MySQL projects with live demos." />
+    <meta name="author" content="Muhammad Immad Shahzad" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sparkling-puffpuff-b9556a.netlify.app/" />
+    <meta property="og:image" content="https://sparkling-puffpuff-b9556a.netlify.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://sparkling-puffpuff-b9556a.netlify.app/og-image.jpg" />
+    <meta property="og:title" content="Muhammad Immad Shahzad | Full Stack Python & Web Developer" />
+    <meta property="og:description" content="Full-stack web apps built with React, FastAPI, Django and MongoDB/MySQL. See my live projects and get in touch." />
+    <!-- Start downloading the 3D character files right away (big loading-time win) -->
+    <link rel="preload" href="/models/character.enc" as="fetch" crossorigin="anonymous" />
+    <link rel="preload" href="/models/char_enviorment.hdr" as="fetch" crossorigin="anonymous" />
+    <script>
+      // Apply the saved theme before first paint (no flash)
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

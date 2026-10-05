@@ -1,0 +1,158 @@
+.skills-section {
+  width: 100%;
+  padding: 110px 0 90px;
+  position: relative;
+  z-index: 2;
+}
+.skills-inner {
+  width: var(--cWidth);
+  max-width: 1300px;
+  margin: 0 auto;
+  text-align: center;
+}
+.skills-inner h2 {
+  font-size: 56px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.skills-inner h2 span {
+  color: var(--accentColor);
+}
+.skills-sub {
+  opacity: 0.7;
+  font-size: 18px;
+  margin-bottom: 28px;
+}
+.skills-tabs {
+  display: inline-flex;
+  padding: 5px;
+  gap: 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  margin-bottom: 34px;
+}
+.skills-tabs button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 10px 26px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.skills-tabs button.on {
+  background: var(--accentColor);
+  color: #1a0b3a;
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  text-align: left;
+}
+.skill-card {
+  --sc: #8b5cf6;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 3px solid var(--sc);
+  border-radius: 16px;
+  padding: 20px 20px 22px;
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+  border-color: var(--sc);
+}
+.skill-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.skill-ico {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  font-weight: 700;
+  background: color-mix(in srgb, var(--sc) 22%, transparent);
+  color: var(--sc);
+}
+.skill-card-head h3 {
+  font-size: 20px;
+  font-weight: 600;
+  flex: 1;
+  margin: 0;
+}
+.skill-card-head em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--sc) 20%, transparent);
+  color: var(--sc);
+}
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.skill-chips span {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--sc) 40%, transparent);
+  background: color-mix(in srgb, var(--sc) 10%, transparent);
+  line-height: 1.2;
+}
+.skill-links {
+  display: flex;
+  gap: 16px;
+  margin-top: auto;
+}
+.skill-links a {
+  color: var(--accentColor);
+  font-weight: 600;
+  font-size: 14px;
+}
+.skill-links a:hover {
+  text-decoration: underline;
+}
+@media only screen and (max-width: 1024px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (max-width: 640px) {
+  .skills-section {
+    padding: 70px 0 60px;
+  }
+  .skills-inner h2 {
+    font-size: 38px;
+  }
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* keep clear of the fixed social icons (left) and RESUME / WhatsApp (right) on desktop */
+@media only screen and (min-width: 769px) {
+  .skills-inner {
+    padding: 0 90px;
+    box-sizing: border-box;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .skills-inner {
+    padding: 0 80px;
+  }
+}
