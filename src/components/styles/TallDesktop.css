@@ -1,0 +1,23 @@
+/* Phone in "desktop site" mode (wide + tall screen, see MainContainer.tsx):
+   same laptop layout, but all text a bit bigger. Laptops are not affected. */
+body.tall-desktop {
+  --tz: 1.15;
+}
+
+/* sections that are exactly one screen tall stay one screen tall after zooming */
+body.tall-desktop .about-section,
+body.tall-desktop .whatIDO,
+body.tall-desktop .work-section {
+  height: calc(100vh / var(--tz)) !important;
+}
+body.tall-desktop .techstack-new {
+  min-height: calc(100vh / var(--tz)) !important;
+}
+body.tall-desktop .contact-section {
+  min-height: calc(60vh / var(--tz)) !important;
+}
+
+/* bigger text: everything after the hero (the hero and the 3D character layer stay as they are) */
+body.tall-desktop .container-main .container-main > :not(.landing-section) {
+  zoom: var(--tz);
+}
