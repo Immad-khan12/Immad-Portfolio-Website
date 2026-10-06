@@ -4,7 +4,7 @@
 }
 
 /* Phones + tablets: the 3D character sits inside the hero, between name and roles */
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 768px) {
   .character-container {
     order: 2;
     position: relative;
@@ -466,7 +466,7 @@ h2.landing-info-h2 {
   }
 }
 
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 769px) {
   .character-model {
     height: 100vh;
     bottom: 0;

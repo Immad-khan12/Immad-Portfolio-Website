@@ -41,7 +41,7 @@ const Scene = () => {
       });
       renderer.setSize(container.width, container.height);
       renderer.setPixelRatio(
-        Math.min(window.devicePixelRatio, window.innerWidth <= 1024 ? 1.5 : 2)
+        Math.min(window.devicePixelRatio, window.innerWidth <= 768 ? 1.5 : 2)
       );
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1;
@@ -68,7 +68,7 @@ const Scene = () => {
       // Ignore those height-only resizes so the canvas is not reset again and again.
       let lastWidth = window.innerWidth;
       const onResize = () => {
-        if (window.innerWidth <= 1024 && window.innerWidth === lastWidth) return;
+        if (window.innerWidth <= 768 && window.innerWidth === lastWidth) return;
         lastWidth = window.innerWidth;
         if (loadedCharacter && !disposed) {
           handleResize(renderer, camera, canvasDiv, loadedCharacter);

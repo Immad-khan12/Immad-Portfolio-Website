@@ -115,7 +115,7 @@
     opacity: 1;
   }
 }
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 768px) {
   .whatsapp-float {
     bottom: 22px;
   }
@@ -210,7 +210,7 @@
 }
 
 /* UPDATED: Changed breakpoint from 768px to 1024px */
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 768px) {
   .landing-cta {
     position: static !important;
     flex-direction: row;
@@ -241,7 +241,7 @@
 .whatIDO > .what-box:first-child .hire-buttons {
   margin-top: 36px;
 }
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 768px) {
   .whatIDO > .what-box:first-child {
     align-items: center;
   }
@@ -293,7 +293,7 @@
 }
 
 /* ───────── Desktop hero: same big look as the original template ───────── */
-@media only screen and (min-width: 1025px) {
+@media only screen and (min-width: 769px) {
   .landing-intro {
     left: 8% !important;
     right: auto !important;
@@ -329,7 +329,7 @@
 }
 
 /* UPDATED: Changed breakpoint from 768px to 1024px */
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 768px) {
   .landing-info h3 {
     display: block !important;
     text-align: center;

@@ -20,7 +20,7 @@
 
 /* 2) Name a little smaller + a bit more to the left, so the "D" of
       SHAHZAD no longer hides behind the character's ear (desktop only). */
-@media only screen and (min-width: 1025px) {
+@media only screen and (min-width: 769px) {
   .landing-intro {
     left: 5% !important;
   }

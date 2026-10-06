@@ -1,22 +1,34 @@
-/* Phone + tablet (up to 1024px): 3D character follows the page (see GsapScroll.ts) */
-@media only screen and (max-width: 1024px) {
+/* Phone (up to 768px): the 3D character follows the page (see GsapScroll.ts) */
+@media only screen and (max-width: 768px) {
   .char-slot {
     order: 2;
     width: 100%;
     position: relative;
   }
 
-  /* above the page text, below the top bar */
+  /* above the page text (and the Hire Me button), below the top bar */
   .char-slot .character-container {
     order: 0;
-    z-index: 13 !important;
+    z-index: 30 !important;
   }
 
-  /* --char-k goes from 1 to 0.62 while the character follows the scroll:
-     the bottom part is cropped, so the upper half stays visible */
+  /* solid background: the page text slides under the character and disappears
+     (the bottom edge fades out because of the mask in Landing.css) */
   .char-slot .character-model {
-    height: calc(clamp(300px, 52vh, 520px) * var(--char-k, 1)) !important;
-    overflow: hidden !important;
+    height: clamp(280px, 46vh, 460px) !important;
     background-color: var(--backgroundColor);
+  }
+
+  /* while the character follows the page, a solid strip above it hides the
+     page text that scrolls under the top bar */
+  .char-slot .character-container.is-pinned::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -56px;
+    height: 56px;
+    background-color: var(--backgroundColor);
+    pointer-events: none;
   }
 }

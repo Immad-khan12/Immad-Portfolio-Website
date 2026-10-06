@@ -17,12 +17,12 @@ import FloatingWhatsApp from "./FloatingWhatsApp";
 const MainContainer = ({ children }: PropsWithChildren) => {
   // Compact (phone + tablet, up to 1024px): the 3D character sits inside the hero,
   // between the name and the roles. Desktop: it is a full-screen layer behind the page.
-  const [compact, setCompact] = useState<boolean>(window.innerWidth <= 1024);
+  const [compact, setCompact] = useState<boolean>(window.innerWidth <= 768);
 
   useEffect(() => {
     const resizeHandler = () => {
       setSplitText();
-      setCompact(window.innerWidth <= 1024);
+      setCompact(window.innerWidth <= 768);
     };
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
