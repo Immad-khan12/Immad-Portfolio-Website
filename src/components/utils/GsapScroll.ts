@@ -147,6 +147,27 @@ export function setCharTimeline(
         )
         .fromTo(".whatIDO", { y: 0 }, { y: "15%", duration: 2 }, 0)
         .to(character.rotation, { x: -0.04, duration: 2, delay: 1 }, 0);
+
+      // Exit tied to the "My career" section (not to the height of "What I do"),
+      // so on tall/narrow screens (phone in desktop mode) the character is always
+      // gone by the time the career heading shows up, just like on a laptop.
+      const tlExit = track(
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: ".career-section",
+            start: "top bottom",
+            end: "top 45%",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        })
+      );
+      tlExit.fromTo(
+        ".character-model",
+        { autoAlpha: 1 },
+        { autoAlpha: 0, duration: 1, ease: "none" },
+        0
+      );
     }
   } else {
     if (character) {
