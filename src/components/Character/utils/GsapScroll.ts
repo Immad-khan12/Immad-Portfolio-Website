@@ -91,11 +91,21 @@ export function setCharTimeline(
     }
   });
   let neckBone = character?.getObjectByName("spine005");
-  if (window.innerWidth > 1024) {
+  if (window.innerWidth > 768) {
     if (character) {
+      // Laptop window = wide (aspect ~1.78). On a squarer/taller area (e.g. a phone in
+      // desktop mode) the camera steps back a bit more, so the character does not
+      // cover the text next to it. On a normal laptop k = 1 (nothing changes).
+      const modelRect = document
+        .querySelector(".character-model")
+        ?.getBoundingClientRect();
+      const aspect =
+        modelRect && modelRect.height > 0 ? modelRect.width / modelRect.height : 1.78;
+      const k = Math.max(1, 1.7 / aspect);
+
       tl1
         .fromTo(character.rotation, { y: 0 }, { y: 0.7, duration: 1 }, 0)
-        .to(camera.position, { z: 22 }, 0)
+        .to(camera.position, { z: 22 * k }, 0)
         .fromTo(".character-model", { x: 0 }, { x: "-25%", duration: 1 }, 0)
         .to(".landing-container", { opacity: 0, duration: 0.4 }, 0)
         .to(".landing-container", { y: "40%", duration: 0.8 }, 0)
@@ -104,7 +114,7 @@ export function setCharTimeline(
       tl2
         .to(
           camera.position,
-          { z: 75, y: 8.4, duration: 6, delay: 2, ease: "power3.inOut" },
+          { z: 75 * k, y: 8.4, duration: 6, delay: 2, ease: "power3.inOut" },
           0
         )
         .to(".about-section", { y: "30%", duration: 6 }, 0)
@@ -112,7 +122,7 @@ export function setCharTimeline(
         .fromTo(
           ".character-model",
           { pointerEvents: "inherit" },
-          { pointerEvents: "none", x: "-12%", delay: 2, duration: 5 },
+          { pointerEvents: "none", x: k > 1.1 ? "-20%" : "-12%", delay: 2, duration: 5 },
           0
         )
         .to(character.rotation, { y: 0.92, x: 0.12, delay: 3, duration: 3 }, 0)
@@ -147,6 +157,27 @@ export function setCharTimeline(
         )
         .fromTo(".whatIDO", { y: 0 }, { y: "15%", duration: 2 }, 0)
         .to(character.rotation, { x: -0.04, duration: 2, delay: 1 }, 0);
+
+      // Exit tied to the "My career" section (not to the height of "What I do"),
+      // so on tall/narrow screens (phone in desktop mode) the character is always
+      // gone by the time the career heading shows up, just like on a laptop.
+      const tlExit = track(
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: ".career-section",
+            start: "top bottom",
+            end: "top 45%",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        })
+      );
+      tlExit.fromTo(
+        ".character-model",
+        { autoAlpha: 1 },
+        { autoAlpha: 0, duration: 1, ease: "none" },
+        0
+      );
     }
   } else {
     if (character) {
@@ -161,11 +192,14 @@ export function setCharTimeline(
       );
       tM2.to(".what-box-in", { display: "flex", duration: 0.1, delay: 0 }, 0);
 
-      // Phone + tablet: the character follows you down the page like on desktop.
-      // It stays under the top bar from the hero, through About me and What I do,
-      // then scrolls away. While it follows, it gets a bit shorter (the upper half
-      // stays visible) so the text still has room to be read.
+      // ───────── Phone: the character comes down the page like on desktop ─────────
+      // The character box is pinned under the top bar from the hero until the end of
+      // "What I do". On the way it turns, steps back and sits at its desk with the
+      // monitor (same scene as desktop), then scrolls away.
       if (document.querySelector(".char-slot")) {
+        const FAR_Z = 92; // how far the camera steps back (bigger = more of the desk, smaller character)
+        const FAR_Y = 8.4;
+
         createdTriggers.push(
           ScrollTrigger.create({
             trigger: ".char-slot",
@@ -176,24 +210,56 @@ export function setCharTimeline(
             pinSpacing: false,
             anticipatePin: 1,
             invalidateOnRefresh: true,
+            // while following the page, a solid strip hides text behind the top bar
+            toggleClass: {
+              targets: ".char-slot .character-container",
+              className: "is-pinned",
+            },
           })
         );
-        track(
+
+        // hero -> About me: turn a little and come closer
+        const mAbout = track(
           gsap.timeline({
             scrollTrigger: {
-              trigger: ".char-slot",
-              start: "top 56px",
-              end: "+=260",
+              trigger: ".about-section",
+              start: "top 85%",
+              end: "center 40%",
               scrub: true,
               invalidateOnRefresh: true,
             },
           })
-        ).fromTo(
-          ".char-slot .character-container",
-          { "--char-k": 1 },
-          { "--char-k": 0.62, ease: "none" },
-          0
         );
+        mAbout
+          .fromTo(character.rotation, { y: 0 }, { y: 0.5, duration: 1 }, 0)
+          .to(camera.position, { z: 22, duration: 1 }, 0);
+
+        // About me -> What I do: step back, sit at the desk, monitor turns on
+        const mWhat = track(
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: ".about-section",
+              start: "center 40%",
+              endTrigger: ".whatIDO",
+              end: "top 30%",
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          })
+        );
+        mWhat
+          .to(camera.position, { z: FAR_Z, y: FAR_Y, duration: 6, ease: "power2.inOut" }, 0)
+          .to(character.rotation, { y: 0.92, x: 0.12, duration: 4, delay: 1 }, 0)
+          .to(neckBone!.rotation, { x: 0.6, duration: 3, delay: 1 }, 0)
+          .to(monitor.material, { opacity: 1, duration: 1, delay: 3 }, 0)
+          .to(screenLight.material, { opacity: 1, duration: 1, delay: 4 }, 0)
+          .fromTo(monitor.position, { y: -10, z: 2 }, { y: 0, z: 0, duration: 3, delay: 1.5 }, 0)
+          .fromTo(
+            ".character-rim",
+            { opacity: 1, scaleX: 1.4 },
+            { opacity: 0, scale: 0, y: "-70%", duration: 4, delay: 1 },
+            0.3
+          );
       }
     }
   }
@@ -242,7 +308,7 @@ export function setAllTimeline() {
       0
     );
 
-  if (window.innerWidth > 1024) {
+  if (window.innerWidth > 768) {
     careerTimeline.fromTo(
       ".career-section",
       { y: 0 },

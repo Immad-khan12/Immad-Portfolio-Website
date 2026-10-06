@@ -1,14 +1,28 @@
-/* Phone in "desktop site" mode (wide + tall screen, see MainContainer.tsx):
-   same laptop layout, but all text a bit bigger. Laptops are not affected. */
+/* Phone in "desktop site" mode (wide + tall screen, see MainContainer.tsx).
+   Same laptop layout, but built like a laptop window that sits at the TOP of every
+   screen (no big empty gap above the content), and a bit bigger (--tz).
+   Laptops are not affected. */
 body.tall-desktop {
-  --tz: 1.15;
+  --tz: 1.2; /* text / layout size (bigger = bigger text) */
+  --hs: 700px; /* height of the laptop-shaped area at the top, in layout px */
 }
 
-/* sections that are exactly one screen tall stay one screen tall after zooming */
+/* the 3D character layer only covers that top area; its bottom edge fades out */
+body.tall-desktop .character-model {
+  top: 0 !important;
+  bottom: auto !important;
+  height: calc(var(--hs) * var(--tz)) !important;
+  -webkit-mask-image: linear-gradient(to bottom, #000 90%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 90%, transparent 100%);
+}
+
+/* sections stay exactly one screen tall (after zooming) ... */
+body.tall-desktop .landing-section,
 body.tall-desktop .about-section,
 body.tall-desktop .whatIDO,
 body.tall-desktop .work-section {
   height: calc(100vh / var(--tz)) !important;
+  min-height: calc(100vh / var(--tz)) !important;
 }
 body.tall-desktop .techstack-new {
   min-height: calc(100vh / var(--tz)) !important;
@@ -17,7 +31,32 @@ body.tall-desktop .contact-section {
   min-height: calc(60vh / var(--tz)) !important;
 }
 
-/* bigger text: everything after the hero (the hero and the 3D character layer stay as they are) */
-body.tall-desktop .container-main .container-main > :not(.landing-section) {
+/* ... but their content starts at the top, in the laptop-shaped area */
+body.tall-desktop .landing-container {
+  height: var(--hs) !important;
+  min-height: var(--hs) !important;
+}
+body.tall-desktop .about-section,
+body.tall-desktop .whatIDO {
+  align-items: flex-start !important;
+}
+body.tall-desktop .about-section {
+  padding-top: calc((var(--hs) - 520px) / 2);
+}
+body.tall-desktop .whatIDO {
+  padding-top: calc((var(--hs) - 500px) / 2);
+  box-sizing: border-box;
+}
+
+/* What I do: the two boxes must fit next to the character */
+body.tall-desktop .what-box-in {
+  margin-left: 40px !important;
+}
+body.tall-desktop .what-content {
+  width: 340px !important;
+}
+
+/* bigger layout: everything on the page except the 3D layer */
+body.tall-desktop .container-main .container-main > * {
   zoom: var(--tz);
 }
