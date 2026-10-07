@@ -28,7 +28,7 @@ export const config = {
         hireMessage: "Hi Immad! I saw your portfolio and I'd like to hire you for a project."
     },
     resume: {
-        file: "/Muhammad_Immad_Shahzad_Resume.pdf",
+        file: "/Muhammad_Immad_Shahzad_Resume_v2.pdf",
         downloadName: "Muhammad_Immad_Shahzad_Resume.pdf"
     },
     about: {
