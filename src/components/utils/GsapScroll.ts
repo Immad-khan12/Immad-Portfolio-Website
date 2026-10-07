@@ -93,6 +93,13 @@ export function setCharTimeline(
   let neckBone = character?.getObjectByName("spine005");
   if (window.innerWidth > 768) {
     if (character) {
+      // Phone in "desktop site" mode (tall screen, see TallDesktop.css): the camera
+      // steps back more and the character sits further left, so the character and the
+      // two "What I do" boxes stay side by side and never climb on each other.
+      // On a laptop nothing changes.
+      const tall = document.body.classList.contains("tall-desktop");
+      const farK = tall ? 1.6 : 1;
+
       tl1
         .fromTo(character.rotation, { y: 0 }, { y: 0.7, duration: 1 }, 0)
         .to(camera.position, { z: 22 }, 0)
@@ -104,7 +111,7 @@ export function setCharTimeline(
       tl2
         .to(
           camera.position,
-          { z: 75, y: 8.4, duration: 6, delay: 2, ease: "power3.inOut" },
+          { z: 75 * farK, y: 8.4, duration: 6, delay: 2, ease: "power3.inOut" },
           0
         )
         .to(".about-section", { y: "30%", duration: 6 }, 0)
@@ -112,7 +119,7 @@ export function setCharTimeline(
         .fromTo(
           ".character-model",
           { pointerEvents: "inherit" },
-          { pointerEvents: "none", x: "-12%", delay: 2, duration: 5 },
+          { pointerEvents: "none", x: tall ? "-24%" : "-12%", delay: 2, duration: 5 },
           0
         )
         .to(character.rotation, { y: 0.92, x: 0.12, delay: 3, duration: 3 }, 0)
@@ -155,8 +162,10 @@ export function setCharTimeline(
         gsap.timeline({
           scrollTrigger: {
             trigger: ".career-section",
-            start: "top bottom",
-            end: "top 45%",
+            // tall phone screen: it fades out a little later, so it stays with the
+            // "What I do" boxes, but is gone before the career heading shows up
+            start: tall ? "top 94%" : "top bottom",
+            end: tall ? "top 80%" : "top 45%",
             scrub: true,
             invalidateOnRefresh: true,
           },
